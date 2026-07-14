@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaGO.pe</title>
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="cart.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="img/LOGO.png" alt="ViaGo Perú">
+                </a>
+                <select class="language-select" id="language-changer">
+        <option value="es">ES Español</option>
+        <option value="en">EN English</option>
+    </select>
+</div>
+<div id="google_translate_element" style="display:none;"></div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+                <!-- <li><a href="#">Blog <i class="fa-solid fa-chevron-down"></i></a></li> -->
+                <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Mi carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <a href="https://wa.me/942169773" target="_blank" class="contact-btn">
+                    <i class="fa-regular fa-comment"></i> Contáctanos
+                </a>
+
+                <a href="perfil.html" target="_blank" class="contact-btn">
+                    <i class="fa-solid fa-user"></i> Mi cuenta
+                </a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-right"></i></a></li>
+            <!--   <li><a href="#">Blog <i class="fa-solid fa-chevron-right"></i></a></li> -->
+            <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <section class="hero">
+        <div class="decorationleft-img">
+            <img src="img/LeftDecorate.png" alt="Decoración Left">
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-text">
+                <span class="hero-subtitle">Cononce mas!</span>
+                <h1>Viajes a medida para descubrir el vibrante Perú</h1>
+                <p>Explora el mundo a través de experiencias culturales únicas, con comunidades locales y guías
+                    expertos, potenciadas por la tecnología.</p>
+                <div class="hero-buttons">
+                    <a href="destinos.html" class="btn-destinos">Destinos</a>
+                    <button class="btn-regiones" id="openRegionsBtn">
+                        <i class="fa-solid fa-map-location-dot"></i> Por Region
+                    </button>
+
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/machupicchu.jpeg" alt="Machu Picchu">
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations">
+
+
+<!-- 3. La librería oficial de Google -->
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>  
+        <div class="title-container">
+            <h1>Mejores Destinos</h1>
+            <a href="destinos.html">Ver Todos</a>
+        </div>
+
+        <div class="carousel-container">
+            <button class="nav prev"><i class="fa-solid fa-chevron-left"></i></button>
+
+            <div class="carousel">
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/cusco.jpg" alt="Cusco">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>  <!-- favorito -->
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Plaza de Armas de Cusco</h2>
+                                <p>Cusco, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>1 día de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/paracas.jpg" alt="Paracas">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Paracas</h2>
+                                <p>Ica, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>2 días de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/puno.jpg" alt="Puno">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Lago Titicaca</h2>
+                                <p>Puno, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>3 días de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/MachuPicchu.jpg" alt="Machu Picchu">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Machu Picchu</h2>
+                                <p>Cusco, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>4 días de viaje</span></div>
+                    </div>
+                </div>
+
+                <!-- otra -->
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/lima.jpg" alt="Machu Picchu">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Paisaje</h2>
+                                <p>Lima, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>4 días de viaje</span></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/lima2.jpg" alt="Machu Picchu">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Costa Verde</h2>
+                                <p>Lima, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>4 días de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/cusco.jpg" alt="Cusco">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Plaza de Armas de Cusco</h2>
+                                <p>Cusco, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>1 día de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/paracas.jpg" alt="Paracas">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Paracas</h2>
+                                <p>Ica, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>2 días de viaje</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="image-box">
+                        <img src="img/puno.jpg" alt="Puno">
+                        <div class="heart heart-btn"><i class="fa-solid fa-heart"></i></div>
+                    </div>
+                    <div class="content">
+                        <div class="top">
+                            <div>
+                                <h2>Lago Titicaca</h2>
+                                <p>Puno, Perú</p>
+                            </div>
+                        </div>
+                        <div class="bottom"><i class="fa-regular fa-clock"></i> <span>3 días de viaje</span></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <button class="nav next"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section class="experience">
+        <div class="experience-container">
+            <div class="experience-left">
+                <span class="mini-title">Diviertete!</span>
+                <h1>Obten la mejor experiencia de viaje</h1>
+                <div class="info">
+                    <div class="info-box">
+                        <h2>Estancias Inolvidables</h2>
+                        <p>Hoteles que inspiran por su estilo, ubicación y experiencia. Elegidos pensando en tu
+                            comodidad.</p>
+                    </div>
+                    <div class="info-box">
+                        <h2>Costos amigables</h2>
+                        <p>Precios pensados para que viajes sin preocupaciones. Accesible, cómodo y con todo lo que
+                            necesitas.</p>
+                    </div>
+                </div>
+                <a href="destinos.html"><button class="destination-btn">Destinos</button></a>
+            </div>
+
+            <div class="experience-right">
+                <div class="bubble bubble-1">
+                    <img src="img/arequipa.jpg" alt="Arequipa">
+                    <div class="overlay-b">Lima</div>
+                </div>
+                <div class="bubble bubble-2">
+                    <img src="img/cusco.jpg" alt="Cusco">
+                    <div class="overlay-b">Cusco</div>
+                </div>
+                <div class="bubble bubble-3">
+                    <img src="img/puno.jpg" alt="Puno">
+                    <div class="overlay-b">Puno</div>
+                </div>
+                <div class="bubble bubble-4">
+                    <img src="img/paracas.jpg" alt="Paracas">
+                    <div class="overlay-b">Arequipa</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <div class="gallery-top">
+            <div class="gallery-title">
+                <span> Conózcanos</span>
+                <h1>Elija su fecha favorita para explorar</h1>
+            </div>
+            <div class="gallery-text">
+                <p>No sólo trabajamos con reservas. Trabajamos con personas. Somos accesibles, para hacer tu viaje la
+                    mejor experiencia.</p>
+            </div>
+        </div>
+
+        <div class="slider">
+            <div class="slides">
+                <img src="img/cusco.jpg" class="slide active" alt="Galeria 1">
+                <img src="img/lima.jpg" class="slide" alt="Galeria 2">
+                <img src="img/puno.jpg" class="slide" alt="Galeria 3">
+                <img src="img/paracas.jpg" class="slide" alt="Galeria 4">
+            </div>
+
+            <div class="gallery-info">
+                <div class="left-info">
+                    <h2>Galería de fotos ViaGO</h2>
+                    <p>Las mejores fotos de nuestros viajes</p>
+                </div>
+                <div class="right-info">
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="counter" id="counter">01 / 04</div>
+                    <div class="buttons">
+                        <button class="prev-btn" id="prevSlide">❮</button>
+                        <button class="next-btn" id="nextSlide">❯</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ventana emerjente por regiones -->
+    <div class="modal" id="regionsModal">
+        <div class="modal-content regions-content">
+            <span class="close-modal" id="closeRegionsModal">&times;</span>
+
+            <div class="regions-header">
+                <h3>Descubre el Perú</h3>
+                <p>Elige una región y encuentra tu próximo destino</p>
+            </div>
+
+            <div class="regions-tabs">
+                <button class="tab-btn active" data-tab="costa">Costa</button>
+                <button class="tab-btn" data-tab="sierra">Sierra</button>
+                <button class="tab-btn" data-tab="selva">Selva</button>
+            </div>
+            <!-- region :costa  -->
+            <div class="tab-content active" id="tab-costa">
+                <div class="region-grid">
+                    <div class="region-card">
+                        <img src="img/lima.jpg" alt="Lima">
+                        <div class="overlay-r"></div>
+                        <h4>Lima</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="img/paracas.jpg" alt="Paracas">
+                        <div class="overlay-r"></div>
+                        <h4>Paracas</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="img/ica.jpg" alt="Ica">
+                        <div class="overlay-r"></div>
+                        <h4>Ica</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=500"
+                            alt="Máncora">
+                        <div class="overlay-r"></div>
+                        <h4>Caral</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://content.emarket.pe/common/collections/content/87/b7/87b7c084-fd3f-4c47-b37e-0cefb64ff2f3.png"
+                            alt="Máncora">
+                        <div class="overlay-r"></div>
+                        <h4>La Libertad</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://tse1.mm.bing.net/th/id/OIP.z-i5UtXVd8tM1C-Rx_HnmAHaEE?rs=1&pid=ImgDetMain&o=7&rm=3"
+                            alt="Máncora">
+                        <div class="overlay-r"></div>
+                        <h4>Lambayeque</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://images.unsplash.com/photo-1631231248242-f82e0a0e2ea6?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Máncora">
+                        <div class="overlay-r"></div>
+                        <h4>Chan Chan</h4>
+                    </div>
+
+                </div>
+            </div>
+            <!-- region :sierra  -->
+            <div class="tab-content" id="tab-sierra">
+                <div class="region-grid">
+                    <div class="region-card">
+                        <img src="img/cusco.jpg" alt="Cusco">
+                        <div class="overlay-r"></div>
+                        <h4>Cusco</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="img/arequipa.jpg" alt="Arequipa">
+                        <div class="overlay-r"></div>
+                        <h4>Arequipa</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="img/puno.jpg" alt="Puno">
+                        <div class="overlay-r"></div>
+                        <h4>Puno</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?q=80&w=500" alt="Huaraz">
+                        <div class="overlay-r"></div>
+                        <h4>Huaraz</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- region :selva  -->
+            <div class="tab-content" id="tab-selva">
+                <div class="region-grid">
+                    <div class="region-card">
+                        <img src="https://bestwayperu.com/wp-content/uploads/2020/08/lugares-imperdibles-que-visitar-en-iquitos-e1596615874584.jpg"
+                            alt="Iquitos">
+                        <div class="overlay-r"></div>
+                        <h4>Iquitos</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://aventuras.pe/public/img/galerias/mirador-punta-de-gallinazo-10842151d1.jpeg"
+                            alt="Tarapoto">
+                        <div class="overlay-r"></div>
+                        <h4>Tarapoto</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMLo83GCGZKZbtTlPfgbWwzi7StX6pGQk4sbk5gBCvs-o2_i9sTzuOsgZI&s=10"
+                            alt="Chachapoyas">
+                        <div class="overlay-r"></div>
+                        <h4>Chachapoyas</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://www.caminosalkantay.com/blog/wp-content/uploads/2024/11/Manu-National-Park-1-1024x683.jpg"
+                            alt="Manu">
+                        <div class="overlay-r"></div>
+                        <h4>Manu</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://turismozumagperu.com/wp-content/uploads/2022/04/Portada-de-ingreso-a-Pozuzo-Oxapampa-lugares-turisticos-del-Peru.jpg"
+                            alt="Manu">
+                        <div class="overlay-r"></div>
+                        <h4>Oxapampa</h4>
+                    </div>
+                    <div class="region-card">
+                        <img src="https://junglabirds.com/wp-content/uploads/2024/07/1WhatsApp-Image-2024-07-23-at-7.42.0612-PM.jpg.webp"
+                            alt="Manu">
+                        <div class="overlay-r"></div>
+                        <h4>Tingo Maria</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="img/LOGO.png" alt="ViaGo Perú" class="footer-logo">
+                </a>
+                <p>Viajes a medida para descubrir el vibrante Perú. Explora el mundo a través de experiencias culturales
+                    únicas y guías expertos.</p>
+
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/942169773" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="destinos.html">Destinos</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contáctanos</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> Lima, Perú</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@viago.pe</li>
+                    <li><i class="fa-solid fa-phone"></i> +51 942 169 773</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ViaGO.pe. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- 1. Configuración del traductor de Google -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+
+<!-- 2. Librería oficial de Google -->
+<!-- Asegúrate de que empiece con https: y no con // -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- 3. El truco para conectar tu <select> personalizado con Google -->
+<script type="text/javascript">
+function conectarTraductor() {
+    const selectorPersonalizado = document.getElementById('language-changer');
+    if (!selectorPersonalizado) return;
+
+    // --- FUNCIÓN PARA GUARDAR LA COOKIE GLOBAL ---
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        // 'path=/' hace que la cookie sea accesible en todas las páginas de la web
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // --- FUNCIÓN PARA LEER LA COOKIE ---
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // 1. REVISAR SI YA EXISTE UN IDIOMA GUARDADO AL CARGAR LA PÁGINA
+    const idiomaGuardado = getCookie('googtrans');
+    if (idiomaGuardado) {
+        // Extrae el código de idioma (ej: de '/es/en' extrae 'en')
+        const codigoIdioma = idiomaGuardado.split('/').pop(); 
+        selectorPersonalizado.value = codigoIdioma;
+        
+        // Si no estamos en la página por defecto y no se ha aplicado el hash, lo forzamos
+        if (codigoIdioma !== 'es' && !window.location.hash.includes('googtrans')) {
+            window.location.hash = `#googtrans(es|${codigoIdioma})`;
+        }
+    }
+
+    // 2. ESCUCHAR CUANDO EL USUARIO CAMBIE EL SELECT MANUALMENTE
+    selectorPersonalizado.addEventListener('change', function() {
+        const idiomaSeleccionado = this.value;
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        // Formato que Google Translate espera en su cookie interna: '/es/en' o '/es/es'
+        const valorCookie = `/es/${idiomaSeleccionado}`;
+        setCookie('googtrans', valorCookie, 7); // Guardar por 7 días
+
+        if (googleSelect) {
+            googleSelect.value = idiomaSeleccionado;
+            googleSelect.dispatchEvent(new Event('change', { bubbles: false }));
+        } else {
+            // Plan B: Forzar mediante URL Hash si el widget tarda en responder
+            window.location.hash = `#googtrans(es|${idiomaSeleccionado})`;
+            window.location.reload();
+        }
+    });
+}
+
+// Inicializar cuando el HTML esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', conectarTraductor);
+} else {
+    conectarTraductor();
+}
+</script>
+
+
+    <script>
+        // 1. Capturamos TODOS los corazones de la página como una lista (NodeList)
+const corazones = document.querySelectorAll(".heart-btn");
+
+// 2. Recorremos la lista uno por uno con un bucle (como un for en Java)
+corazones.forEach(corazon => {
+    
+    // Le asignamos el evento click a CADA corazón de forma independiente
+    corazon.addEventListener("click", () => {
+        
+        // Alternamos el color rojo solo para el corazón que fue clickeado
+        corazon.classList.toggle("liked");
+
+        // Leemos el total actual de favoritos en memoria
+        let totalFavoritos = parseInt(localStorage.getItem("misFavoritos")) || 0;
+
+        // Sumamos o restamos al contador global
+        if (corazon.classList.contains("liked")) {
+            totalFavoritos += 1;
+            // Opcional: Podrías guardar qué destino específico guardó, ej: "favorito_cusco" = true
+            localStorage.setItem(`fav_${corazon.dataset.destino}`, "true");
+        } else {
+            totalFavoritos -= 1;
+            localStorage.removeItem(`fav_${corazon.dataset.destino}`);
+        }
+
+        // Actualizamos el contador global en el localStorage
+        localStorage.setItem("misFavoritos", totalFavoritos);
+    });
+});
+
+
+
+
+        // HEADER SCROLL
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        // MENU HAMBURGUESA
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // ================= CARRUSEL DE DESTINOS (AUTOMÁTICO) =================
+        const carousel = document.querySelector(".carousel");
+        const btnPrev = document.querySelector(".nav.prev");
+        const btnNext = document.querySelector(".nav.next");
+
+        if (carousel) {
+            // Calcula cuánto debe desplazarse según si es PC o Celular
+            const getScrollAmount = () => {
+                const card = carousel.querySelector(".card");
+                const gap = window.innerWidth > 768 ? 30 : 15;
+                return card.offsetWidth + gap;
+            };
+
+            // Función para mover a la derecha
+            const moveNext = () => {
+                // Si llegó al final exacto (con un margen de 5px), vuelve al inicio
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 5) {
+                    carousel.scrollTo({ left: 0, behavior: "smooth" });
+                } else {
+                    carousel.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+                }
+            };
+
+            // Función para mover a la izquierda
+            const movePrev = () => {
+                if (carousel.scrollLeft <= 0) {
+                    carousel.scrollTo({ left: carousel.scrollWidth, behavior: "smooth" });
+                } else {
+                    carousel.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+                }
+            };
+
+            // Activa los botones manuales en PC
+            if (btnNext) btnNext.addEventListener("click", moveNext);
+            if (btnPrev) btnPrev.addEventListener("click", movePrev);
+
+            // ---> MAGIA DEL CARRUSEL AUTOMÁTICO <---
+            let autoPlay = setInterval(moveNext, 1000); // 1000 ms = 1 seg
+
+            // UX: Pausar el auto-carrusel si el usuario lo está tocando o viendo
+            carousel.addEventListener("mouseenter", () => clearInterval(autoPlay));
+            carousel.addEventListener("mouseleave", () => autoPlay = setInterval(moveNext, 1000));
+
+            // UX Celular: Pausar si presiona con el dedo
+            carousel.addEventListener("touchstart", () => clearInterval(autoPlay));
+            carousel.addEventListener("touchend", () => autoPlay = setInterval(moveNext, 1000));
+        }
+
+        // Lógica interactiva de los corazones
+        const hearts = document.querySelectorAll(".heart");
+        hearts.forEach(heart => {
+            heart.addEventListener("click", () => {
+                const icon = heart.querySelector("i");
+                if (icon.style.color === "rgb(255, 46, 99)") {
+                    icon.style.color = "#c5b4b4"; // Gris
+                } else {
+                    icon.style.color = "#ff2e63"; // Rojo
+                }
+            });
+        });
+
+        // ================= GALERIA INFERIOR (SLIDER MANTENIDO IGUAL) =================
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.getElementById('nextSlide');
+        const prevBtn = document.getElementById('prevSlide');
+        const counter = document.getElementById('counter');
+        const progressBar = document.getElementById('progressBar');
+
+        if (slides.length > 0) {
+            let current = 0;
+
+            function updateSlider(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                counter.innerText = `0${index + 1} / 0${slides.length}`;
+
+                progressBar.style.width = '0%';
+                setTimeout(() => { progressBar.style.width = '100%'; }, 50);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                current = (current + 1) % slides.length;
+                updateSlider(current);
+            });
+
+            prevBtn.addEventListener('click', () => {
+                current = (current - 1 < 0) ? slides.length - 1 : current - 1;
+                updateSlider(current);
+            });
+
+            setTimeout(() => { progressBar.style.width = '100%'; }, 50);
+        }
+
+        /*  PARA VENTANA EMERJENTE  QUE ACCIONA EL BOTON -> "VER POR REGIONES*/
+        // ================= MODAL Y TABS DE REGIONES =================
+        const regionsModal = document.getElementById("regionsModal");
+        const openRegionsBtn = document.getElementById("openRegionsBtn");
+        const closeRegionsModal = document.getElementById("closeRegionsModal");
+
+        // 1. Abrir y Cerrar Modal
+        if (openRegionsBtn) {
+            openRegionsBtn.addEventListener("click", () => {
+                regionsModal.classList.add("active");
+            });
+        }
+
+        if (closeRegionsModal) {
+            closeRegionsModal.addEventListener("click", () => {
+                regionsModal.classList.remove("active");
+            });
+        }
+
+        // Cerrar al hacer clic fuera de la caja blanca
+        if (regionsModal) {
+            regionsModal.addEventListener("click", (e) => {
+                if (e.target === regionsModal) {
+                    regionsModal.classList.remove("active");
+                }
+            });
+        }
+
+        // 2. Lógica de Pestañas (Tabs)
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Quitar clase active a todos los botones y contenidos
+                tabBtns.forEach(b => b.classList.remove("active"));
+                tabContents.forEach(c => c.classList.remove("active"));
+
+                // Agregar clase active al botón clickeado
+                btn.classList.add("active");
+
+                // Mostrar el contenido correspondiente (basado en data-tab)
+                const tabId = btn.getAttribute("data-tab");
+                document.getElementById("tab-" + tabId).classList.add("active");
+            });
+        });
+    </script>
+
+
+</html>
+    <script src="cart.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaGO.pe</title>
+
+    <link rel="stylesheet" href="planes.css">
+    <link rel="stylesheet" href="cart.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="img/LOGO.png" alt="ViaGo Perú">
+                </a>
+                 <select class="language-select" id="language-changer">
+        <option value="es">ES Español</option>
+        <option value="en">EN English</option>
+    </select>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+
+                <!-- <li><a href="#">Blog <i class="fa-solid fa-chevron-down"></i></a></li> -->
+                <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Mi carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <a href="https://wa.me/942169773" target="_blank" class="contact-btn">
+                    <i class="fa-regular fa-comment"></i> Contáctanos
+                </a>
+
+                <a href="perfil.html" target="_blank" class="contact-btn">
+                    <i class="fa-solid fa-user"></i> Mi cuenta
+                </a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+            <!-- <li><a href="#">Blog <i class="fa-solid fa-chevron-right"></i></a></li> -->
+            <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <section class="plans">
+        <div class="plans-title">
+            <span>✦ Nuestros planes</span>
+            <h2>Elige la experiencia perfecta para tu viaje</h2>
+        </div>
+
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Básico</h3>
+                <div class="price">S/ 199</div>
+                <p>Ideal para viajeros que buscan una experiencia económica.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Transporte turístico</li>
+                    <li><i class="fa-solid fa-check"></i> Guía básico</li>
+                    <li><i class="fa-solid fa-check"></i> Full Day</li>
+                    <li class="disabled"><i class="fa-solid fa-xmark"></i> Hotel incluido</li>
+                    <li class="disabled"><i class="fa-solid fa-xmark"></i> Alimentación</li>
+                </ul>
+                <a href="reservas.html" class="plan-btn">Elegir plan</a>
+                <div class="cart-actions">
+                    <button class="add-cart-btn" data-add-to-cart data-id="plan-basico" data-nombre="Plan Básico"
+                        data-precio="199">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="plan-card featured">
+                <div class="popular-tag">Más popular</div>
+                <h3>Premium</h3>
+                <div class="price">S/ 499</div>
+                <p>Perfecto para disfrutar una experiencia más completa.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Transporte VIP</li>
+                    <li><i class="fa-solid fa-check"></i> Guía profesional</li>
+                    <li><i class="fa-solid fa-check"></i> Hotel incluido</li>
+                    <li><i class="fa-solid fa-check"></i> Alimentación</li>
+                    <li><i class="fa-solid fa-check"></i> Fotos profesionales</li>
+                </ul>
+                <a href="reservas.html" class="plan-btn">Elegir plan</a>
+                <div class="cart-actions">
+                    <button class="add-cart-btn" data-add-to-cart data-id="plan-premium" data-nombre="Plan Premium"
+                        data-precio="499">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+
+            <div class="plan-card">
+                <h3>VIP</h3>
+                <div class="price">S/ 899</div>
+                <p>Una experiencia exclusiva y totalmente personalizada.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Transporte privado</li>
+                    <li><i class="fa-solid fa-check"></i> Guía exclusivo</li>
+                    <li><i class="fa-solid fa-check"></i> Hotel premium</li>
+                    <li><i class="fa-solid fa-check"></i> Alimentación gourmet</li>
+                    <li><i class="fa-solid fa-check"></i> Atención personalizada</li>
+                </ul>
+                <a href="reservas.html" class="plan-btn">Elegir plan</a>
+                <div class="cart-actions">
+                    <button class="add-cart-btn" data-add-to-cart data-id="plan-vip" data-nombre="Plan VIP"
+                        data-precio="899">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="img/LOGO.png" alt="ViaGo Perú" class="footer-logo">
+                </a>
+                <p>Viajes a medida para descubrir el vibrante Perú. Explora el mundo a través de experiencias culturales
+                    únicas y guías expertos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/942169773" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="destinos.html">Destinos</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contáctanos</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> Lima, Perú</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@viago.pe</li>
+                    <li><i class="fa-solid fa-phone"></i> +51 942 169 773</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ViaGO.pe. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <!-- boton promo -->
+    <button class="floating-promo-btn" id="reopenPromoBtn" title="Ver Descuento">
+        <i class="fa-solid fa-tag"></i>
+    </button>
+    <div class="promo-modal" id="promoModal">
+        <div class="promo-content">
+            <span class="close-promo" id="closePromo">&times;</span>
+            <div class="promo-header">
+                <h3>¡Oferta Relámpago! ⚡</h3>
+            </div>
+            <div class="promo-body">
+                <p>Obtén un <strong>20% de descuento</strong> en cualquiera de nuestros planes reservando hoy mismo.</p>
+                <div class="promo-code-box">
+                    <span>Usa el código:</span>
+                    <strong id="codigoDescuento">VIAGO20</strong>
+                </div>
+                <a href="reservas.html" class="promo-btn">¡Aprovechar Descuento!</a>
+            </div>
+        </div>
+    </div>
+
+        <!-- 1. Configuración del traductor de Google -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+
+<!-- 2. Librería oficial de Google -->
+<!-- Asegúrate de que empiece con https: y no con // -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- 3. El truco para conectar tu <select> personalizado con Google -->
+<script type="text/javascript">
+function conectarTraductor() {
+    const selectorPersonalizado = document.getElementById('language-changer');
+    if (!selectorPersonalizado) return;
+
+    // --- FUNCIÓN PARA GUARDAR LA COOKIE GLOBAL ---
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        // 'path=/' hace que la cookie sea accesible en todas las páginas de la web
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // --- FUNCIÓN PARA LEER LA COOKIE ---
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // 1. REVISAR SI YA EXISTE UN IDIOMA GUARDADO AL CARGAR LA PÁGINA
+    const idiomaGuardado = getCookie('googtrans');
+    if (idiomaGuardado) {
+        // Extrae el código de idioma (ej: de '/es/en' extrae 'en')
+        const codigoIdioma = idiomaGuardado.split('/').pop(); 
+        selectorPersonalizado.value = codigoIdioma;
+        
+        // Si no estamos en la página por defecto y no se ha aplicado el hash, lo forzamos
+        if (codigoIdioma !== 'es' && !window.location.hash.includes('googtrans')) {
+            window.location.hash = `#googtrans(es|${codigoIdioma})`;
+        }
+    }
+
+    // 2. ESCUCHAR CUANDO EL USUARIO CAMBIE EL SELECT MANUALMENTE
+    selectorPersonalizado.addEventListener('change', function() {
+        const idiomaSeleccionado = this.value;
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        // Formato que Google Translate espera en su cookie interna: '/es/en' o '/es/es'
+        const valorCookie = `/es/${idiomaSeleccionado}`;
+        setCookie('googtrans', valorCookie, 7); // Guardar por 7 días
+
+        if (googleSelect) {
+            googleSelect.value = idiomaSeleccionado;
+            googleSelect.dispatchEvent(new Event('change', { bubbles: false }));
+        } else {
+            // Plan B: Forzar mediante URL Hash si el widget tarda en responder
+            window.location.hash = `#googtrans(es|${idiomaSeleccionado})`;
+            window.location.reload();
+        }
+    });
+}
+
+// Inicializar cuando el HTML esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', conectarTraductor);
+} else {
+    conectarTraductor();
+}
+</script>
+
+    <script>
+        // HEADER Y MENÚ (LÓGICA BASE)
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // ================= LÓGICA DEL MODAL PROMOCIONAL =================
+        const promoModal = document.getElementById("promoModal");
+        const closePromo = document.getElementById("closePromo");
+
+        // Verificamos si el usuario ya vio la promoción en esta sesión
+        if (!sessionStorage.getItem('promocionVista')) {
+            // Disparamos el modal después de 3 segundos (3000 ms)
+            setTimeout(() => {
+                promoModal.classList.add("active");
+            }, 1000);
+        }
+
+        // Cuando el usuario cierra el modal
+        closePromo.addEventListener("click", () => {
+            promoModal.classList.remove("active");
+            // Guardamos en el navegador que ya lo vio, para no molestarlo al recargar
+            sessionStorage.setItem('promocionVista', 'true');
+        });
+
+        // Cerrar también si hace clic en la parte oscura (fuera de la caja)
+        promoModal.addEventListener("click", (e) => {
+            if (e.target === promoModal) {
+                promoModal.classList.remove("active");
+                sessionStorage.setItem('promocionVista', 'true');
+            }
+        });
+        // ================= LÓGICA DEL BOTÓN FLOTANTE =================
+        const reopenPromoBtn = document.getElementById("reopenPromoBtn");
+
+        reopenPromoBtn.addEventListener("click", () => {
+            promoModal.classList.add("active");
+        });
+    </script>
+
+    <script src="cart.js"></script>
+</body>
+
+</html>

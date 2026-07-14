@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Carrito | ViaGO.pe</title>
+
+    <link rel="stylesheet" href="planes.css">
+    <link rel="stylesheet" href="cart.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="img/LOGO.png" alt="ViaGo Perú">
+                </a>
+                <select class="language-select" id="language-changer">
+                    <option value="es">ES Español</option>
+                    <option value="en">EN English</option>
+                </select>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Mi carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="https://wa.me/942169773" target="_blank" class="contact-btn">
+                    <i class="fa-regular fa-comment"></i> Contáctanos
+                </a>
+                <a href="perfil.html" target="_blank" class="contact-btn">
+                    <i class="fa-solid fa-user"></i> Mi cuenta
+                </a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="carrito.html">Mi Carrito <i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <section class="cart-section">
+        <h1>🛒 Mi Carrito</h1>
+        <div id="cart-container"></div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="img/LOGO.png" alt="ViaGo Perú" class="footer-logo">
+                </a>
+                <p>Viajes a medida para descubrir el vibrante Perú. Explora el mundo a través de experiencias
+                    culturales únicas y guías expertos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/942169773" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="destinos.html">Destinos</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contáctanos</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> Lima, Perú</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@viago.pe</li>
+                    <li><i class="fa-solid fa-phone"></i> +51 942 169 773</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ViaGO.pe. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // HEADER Y MENÚ (LÓGICA BASE)
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+    </script>
+
+    <script src="cart.js"></script>
+    <script>
+        function renderCart() {
+            const container = document.getElementById('cart-container');
+            const cart = getCart();
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <p>Tu carrito está vacío. ¡Explora nuestros planes y arma tu próxima aventura!</p>
+                        <a href="planes.html">Ver planes</a>
+                    </div>`;
+                return;
+            }
+
+            let itemsHtml = '<div class="cart-items">';
+            cart.forEach(item => {
+                itemsHtml += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h3>${item.nombre}</h3>
+                            <span>S/ ${item.precio.toFixed(2)} c/u</span>
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="qty-control">
+                                <button onclick="cambiarCantidad('${item.id}', ${item.cantidad - 1})">-</button>
+                                <span>${item.cantidad}</span>
+                                <button onclick="cambiarCantidad('${item.id}', ${item.cantidad + 1})">+</button>
+                            </div>
+                            <div class="cart-item-subtotal">S/ ${(item.precio * item.cantidad).toFixed(2)}</div>
+                            <button class="remove-item-btn" onclick="eliminarItem('${item.id}')" title="Quitar">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>`;
+            });
+            itemsHtml += '</div>';
+
+            itemsHtml += `
+                <div class="cart-summary">
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span>S/ ${getCartTotal().toFixed(2)}</span>
+                    </div>
+                    <div class="cart-summary-buttons">
+                        <button class="whatsapp-checkout-btn" onclick="sendCartToWhatsApp()">
+                            <i class="fa-brands fa-whatsapp"></i> Reservar por WhatsApp
+                        </button>
+                        <button class="clear-cart-btn" onclick="vaciarCarrito()">Vaciar carrito</button>
+                    </div>
+                </div>`;
+
+            container.innerHTML = itemsHtml;
+        }
+
+        function cambiarCantidad(id, nuevaCantidad) {
+            updateQuantity(id, nuevaCantidad);
+            renderCart();
+        }
+
+        function eliminarItem(id) {
+            removeFromCart(id);
+            renderCart();
+        }
+
+        function vaciarCarrito() {
+            if (confirm('¿Seguro que quieres vaciar el carrito?')) {
+                clearCart();
+                renderCart();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+
+</html>

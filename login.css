@@ -1,0 +1,205 @@
+/* =========================================================
+   RESET Y GLOBALES
+========================================================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    background: #f5f5f5; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón Volver */
+.back-btn {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    text-decoration: none;
+    color: #111;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    font-size: 1.1rem;
+}
+.back-btn:hover { color: #19f2a3; transform: translateX(-5px); }
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+.login-container {
+    width: 900px;
+    max-width: 95%;
+    height: 600px;
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    display: flex;
+    overflow: hidden;
+}
+
+/* =========================================================
+   PANEL IZQUIERDO (IMAGEN)
+========================================================= */
+.login-left {
+    width: 45%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1526392060635-9d6019884377?q=80&w=800&auto=format&fit=crop') center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: white;
+    text-align: center;
+}
+
+.login-left h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.login-left p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+/* =========================================================
+   PANEL DERECHO (FORMULARIOS)
+========================================================= */
+.login-right {
+    width: 55%;
+    padding: 60px 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-box {
+    width: 100%;
+    display: none; /* Oculto por defecto */
+    animation: fadeForm 0.4s ease;
+}
+
+.form-box.active {
+    display: block; /* Visible cuando tiene la clase active */
+}
+
+@keyframes fadeForm {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.form-box h2 {
+    font-size: 2rem;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+/* Campos de Input */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #111;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    border: none;
+    background: #f7f7f7;
+    padding: 16px;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 242, 163, 0.2);
+    background: #fff;
+    border: 1px solid #19f2a3;
+}
+
+/* Mensajes de Error */
+.error-msg {
+    color: #ff4757;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: none;
+}
+
+/* Botón Submit */
+.submit-btn {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 16px;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #19f2a3;
+    color: #000;
+    transform: scale(1.02);
+}
+
+/* Cambiar entre Login y Registro */
+.switch-form {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.switch-form span {
+    color: #0f9d58;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.switch-form span:hover {
+    color: #19f2a3;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVO MÓVIL
+========================================================= */
+@media(max-width: 900px) {
+    .login-left { display: none; } /* Ocultar imagen en móvil */
+    .login-right { width: 100%; padding: 50px 40px; }
+}
+
+@media(max-width: 480px) {
+    .back-btn { top: 20px; left: 20px; font-size: 1rem; }
+    .login-container { height: auto; padding: 20px 0; margin-top: 50px;}
+    .login-right { padding: 30px 20px; }
+    .form-box h2 { font-size: 1.6rem; }
+    .input-group input { padding: 14px; }
+}

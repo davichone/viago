@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaGO.pe - Iniciar Sesión</title>
+    
+    <link rel="stylesheet" href="login.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Inicio</a>
+
+    <div class="login-container">
+        <div class="login-left">
+            <div class="login-left-content">
+<!--                 <img src="img/LOGO.png" alt="ViaGo" class="login-logo" style="filter: brightness(0) invert(1); width: 120px; margin-bottom: 20px;">
+ -->                <h2>Descubre el vibrante Perú</h2>
+                <p>Inicia sesión para gestionar tus reservas, ver destinos personalizados y acceder a descuentos exclusivos.</p>
+            </div>
+        </div>
+
+        <div class="login-right">
+            
+            <div class="form-box active" id="formLogin">
+                <h2>¡Hola de nuevo! 👋</h2>
+                <p class="subtitle">Ingresa tus credenciales para continuar.</p>
+                
+                <form id="signInForm">
+                    <div class="input-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="loginEmail" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Contraseña</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <span class="error-msg" id="loginError">Credenciales incorrectas.</span>
+                    
+                    <button type="submit" class="submit-btn" id="btnLogin">Iniciar Sesión</button>
+                </form>
+                
+                <div class="switch-form">
+                    ¿No tienes cuenta? <span id="goRegister">Regístrate aquí</span>
+                </div>
+            </div>
+
+            <div class="form-box" id="formRegister">
+                <h2>Crea tu cuenta ✈️</h2>
+                <p class="subtitle">Únete a ViaGO y empieza tu aventura.</p>
+                
+                <form id="signUpForm">
+                    <div class="input-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="regName" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="regEmail" placeholder="ejemplo@correo.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Contraseña (Min. 6 caracteres)</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required minlength="6">
+                    </div>
+                    <span class="error-msg" id="regError">Error al crear la cuenta.</span>
+                    
+                    <button type="submit" class="submit-btn" id="btnRegister">Crear Cuenta</button>
+                </form>
+                
+                <div class="switch-form">
+                    ¿Ya tienes cuenta? <span id="goLogin">Inicia sesión</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        // === PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE ===
+        const firebaseConfig = {
+    apiKey: "AIzaSyAUtBrtYQrYPNK9DpL4iDSGVABIQUS6MvQ",
+    authDomain: "viago-82875.firebaseapp.com",
+    projectId: "viago-82875",
+    storageBucket: "viago-82875.firebasestorage.app",
+    messagingSenderId: "604503313765",
+    appId: "1:604503313765:web:ef2f096f855c8cb0b7258c"
+  };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // ================= LÓGICA VISUAL (CAMBIO DE PANTALLAS) =================
+        const formLogin = document.getElementById('formLogin');
+        const formRegister = document.getElementById('formRegister');
+        const goRegister = document.getElementById('goRegister');
+        const goLogin = document.getElementById('goLogin');
+
+        goRegister.addEventListener('click', () => {
+            formLogin.classList.remove('active');
+            formRegister.classList.add('active');
+        });
+
+        goLogin.addEventListener('click', () => {
+            formRegister.classList.remove('active');
+            formLogin.classList.add('active');
+        });
+
+        // ================= LÓGICA DE FIREBASE (REGISTRO) =================
+        const signUpForm = document.getElementById('signUpForm');
+        const regError = document.getElementById('regError');
+        const btnRegister = document.getElementById('btnRegister');
+
+        signUpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            btnRegister.textContent = "Creando cuenta...";
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // ¡Éxito! Usuario creado.
+                    alert("¡Cuenta creada con éxito! Redirigiendo al inicio...");
+                    window.location.href = ""; // Redirigir
+                })
+                .catch((error) => {
+                    regError.style.display = "block";
+                    regError.textContent = "Error: " + error.message;
+                    btnRegister.textContent = "Crear Cuenta";
+                });
+        });
+
+        // ================= LÓGICA DE FIREBASE (LOGIN) =================
+        const signInForm = document.getElementById('signInForm');
+        const loginError = document.getElementById('loginError');
+        const btnLogin = document.getElementById('btnLogin');
+
+        signInForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            btnLogin.textContent = "Iniciando...";
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // ¡Éxito! Usuario logueado.
+                    window.location.href = "index.html"; // Redirigir al inicio
+                })
+                .catch((error) => {
+                    loginError.style.display = "block";
+                    loginError.textContent = "Correo o contraseña incorrectos.";
+                    btnLogin.textContent = "Iniciar Sesión";
+                });
+        });
+    </script>
+</body>
+</html>

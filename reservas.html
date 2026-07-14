@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaGO.pe - Reserva</title>
+
+    <link rel="stylesheet" href="reservas.css">
+    <link rel="stylesheet" href="cart.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Inicializa email script
+        (function () {
+            emailjs.init({
+                publicKey: "C9NQzFyI2RSPDWsRU",
+            });
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="img/LOGO.png" alt="ViaGo Perú">
+                </a>
+                 <select class="language-select" id="language-changer">
+        <option value="es">ES Español</option>
+        <option value="en">EN English</option>
+    </select>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+                <!--  <li><a href="#">Blog <i class="fa-solid fa-chevron-down"></i></a></li> -->
+                <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Mi carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <a href="https://wa.me/942169773" target="_blank" class="contact-btn">
+                    <i class="fa-regular fa-comment"></i> Contáctanos
+                </a>
+
+                <a href="perfil.html" target="_blank" class="contact-btn">
+                    <i class="fa-solid fa-user"></i> Mi cuenta
+                </a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+            <!--   <li><a href="#">Blog <i class="fa-solid fa-chevron-right"></i></a></li> -->
+            <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <section class="experience">
+        <div class="experience-header">
+            <span> Reserva tu experiencia</span>
+            <h2>Elige el plan perfecto para tu próxima aventura</h2>
+        </div>
+
+        <div class="experience-container">
+
+            <div class="plans-selector">
+                <div class="select-card" data-plan="Básico">
+                    <h3>Básico</h3>
+                    <p>Ideal para aventuras económicas y experiencias rápidas.</p>
+                    <span>S/ 199</span>
+                </div>
+
+                <div class="select-card active" data-plan="Premium">
+                    <div class="recommended">Más popular</div>
+                    <h3>Premium</h3>
+                    <p>La mejor experiencia para descubrir el Perú cómodamente.</p>
+                    <span>S/ 499</span>
+                </div>
+
+                <div class="select-card" data-plan="VIP">
+                    <h3>VIP</h3>
+                    <p>Servicio exclusivo y totalmente personalizado.</p>
+                    <span>S/ 899</span>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <form class="experience-form" id="reservaForm">
+
+                    <div class="input-group">
+                        <label>Nombre completo</label>
+                        <input type="text" id="nombreInput" placeholder="Ingresa tu nombre completo">
+                        <span class="error-msg" id="errorNombre">El nombre debe tener al menos 3 caracteres.</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>WhatsApp</label>
+                        <input type="tel" id="wsInput" placeholder="+51 999 999 999">
+                        <span class="error-msg" id="errorWs">Ingresa un número válido (Mínimo 9 dígitos).</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Personas</label>
+                            <input type="number" id="personasInput" placeholder="Ej: 2">
+                            <span class="error-msg" id="errorPersonas">Mínimo 1 persona.</span>
+                        </div>
+                        <div class="input-group">
+                            <label>Fecha tentativa</label>
+                            <input type="date" id="fechaInput">
+                            <span class="error-msg" id="errorFecha">Elige una fecha a partir de hoy.</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Plan seleccionado</label>
+                        <input type="text" id="selectedPlan" value="Premium" readonly>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cupón de descuento (Opcional)</label>
+                        <input type="text" id="couponInput" placeholder="Ej: VIAGO20">
+                        <span class="success-msg" id="couponSuccess" style="color: #11c76f; font-size: 0.85rem; font-weight: 600; display: none; margin-left: 5px;">¡Cupón VIAGO20 aplicado (20% de descuento)! 🎉</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Comentarios</label>
+                        <textarea id="comentariosInput"
+                            placeholder="Cuéntanos más sobre tu viaje ideal"></textarea>
+                    </div>
+
+                    <div class="payment-summary">
+                        <h4>Resumen de tu Reserva</h4>
+                        <div class="summary-row">
+                            <span>Precio del Plan (por persona):</span>
+                            <span id="summaryBasePrice">S/ 499</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Cantidad de personas:</span>
+                            <span id="summaryPersons">1</span>
+                        </div>
+                        <div class="summary-row" id="summaryDiscountRow" style="display: none;">
+                            <span>Descuento (20%):</span>
+                            <span id="summaryDiscount">-S/ 0</span>
+                        </div>
+                        <hr>
+                        <div class="summary-row total-row">
+                            <span>Total Estimado:</span>
+                            <span id="summaryTotal">S/ 499</span>
+                        </div>
+                    </div>
+
+                    <div class="terms-group">
+                        <div class="terms">
+                            <input type="checkbox" id="termsInput">
+                            <label for="termsInput">
+                                He leído y acepto los <a href="#">términos y condiciones</a>
+                            </label>
+                        </div>
+                        <span class="error-msg" id="errorTerms">Debes aceptar los términos para continuar.</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="btnEnviar">Continuar con asesor</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="successModal">
+        <div class="modal-content" style="text-align: center; padding: 50px 30px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 5rem; color: #19f2a3; margin-bottom: 20px;"></i>
+            <h2 style="font-size: 2.2rem; margin-bottom: 15px; color: #111;">¡Reserva Solicitada!</h2>
+            <p style="color: #555; line-height: 1.6; font-size: 1.1rem;">Todo está listo. Un asesor de ViaGO se
+                comunicará a tu WhatsApp en los próximos minutos.</p>
+            <button class="submit-btn" id="closeSuccess" style="margin-top: 30px; width: 60%;">Cerrar</button>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="img/LOGO.png" alt="ViaGo Perú" class="footer-logo">
+                </a>
+                <p>Viajes a medida para descubrir el vibrante Perú. Explora el mundo a través de experiencias culturales
+                    únicas y guías expertos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/942169773" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="destinos.html">Destinos</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contáctanos</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> Lima, Perú</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@viago.pe</li>
+                    <li><i class="fa-solid fa-phone"></i> +51 942 169 773</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ViaGO.pe. Todos los derechos reservados.</p>
+        </div>
+
+    </footer>
+
+        <!-- 1. Configuración del traductor de Google -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+
+<!-- 2. Librería oficial de Google -->
+<!-- Asegúrate de que empiece con https: y no con // -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- 3. El truco para conectar tu <select> personalizado con Google -->
+<script type="text/javascript">
+function conectarTraductor() {
+    const selectorPersonalizado = document.getElementById('language-changer');
+    if (!selectorPersonalizado) return;
+
+    // --- FUNCIÓN PARA GUARDAR LA COOKIE GLOBAL ---
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        // 'path=/' hace que la cookie sea accesible en todas las páginas de la web
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // --- FUNCIÓN PARA LEER LA COOKIE ---
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // 1. REVISAR SI YA EXISTE UN IDIOMA GUARDADO AL CARGAR LA PÁGINA
+    const idiomaGuardado = getCookie('googtrans');
+    if (idiomaGuardado) {
+        // Extrae el código de idioma (ej: de '/es/en' extrae 'en')
+        const codigoIdioma = idiomaGuardado.split('/').pop(); 
+        selectorPersonalizado.value = codigoIdioma;
+        
+        // Si no estamos en la página por defecto y no se ha aplicado el hash, lo forzamos
+        if (codigoIdioma !== 'es' && !window.location.hash.includes('googtrans')) {
+            window.location.hash = `#googtrans(es|${codigoIdioma})`;
+        }
+    }
+
+    // 2. ESCUCHAR CUANDO EL USUARIO CAMBIE EL SELECT MANUALMENTE
+    selectorPersonalizado.addEventListener('change', function() {
+        const idiomaSeleccionado = this.value;
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        // Formato que Google Translate espera en su cookie interna: '/es/en' o '/es/es'
+        const valorCookie = `/es/${idiomaSeleccionado}`;
+        setCookie('googtrans', valorCookie, 7); // Guardar por 7 días
+
+        if (googleSelect) {
+            googleSelect.value = idiomaSeleccionado;
+            googleSelect.dispatchEvent(new Event('change', { bubbles: false }));
+        } else {
+            // Plan B: Forzar mediante URL Hash si el widget tarda en responder
+            window.location.hash = `#googtrans(es|${idiomaSeleccionado})`;
+            window.location.reload();
+        }
+    });
+}
+
+// Inicializar cuando el HTML esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', conectarTraductor);
+} else {
+    conectarTraductor();
+}
+</script>
+
+    <script>
+        // HEADER Y MENÚ
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+        overlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // TARJETAS DE SELECCIÓN
+        const cards = document.querySelectorAll(".select-card");
+        const selectedPlan = document.getElementById("selectedPlan");
+        cards.forEach(card => {
+            card.addEventListener("click", () => {
+                cards.forEach(item => item.classList.remove("active"));
+                card.classList.add("active");
+                selectedPlan.value = card.dataset.plan;
+                updatePrice();
+            });
+        });
+
+        // ================= VALIDACIÓN Y EMAILJS =================
+        const reservaForm = document.getElementById("reservaForm");
+        const successModal = document.getElementById("successModal");
+        const closeSuccess = document.getElementById("closeSuccess");
+        const btnEnviar = document.getElementById("btnEnviar");
+
+        // Elementos
+        const inputNombre = document.getElementById("nombreInput");
+        const inputWs = document.getElementById("wsInput");
+        const inputPersonas = document.getElementById("personasInput");
+        const inputFecha = document.getElementById("fechaInput");
+        const inputComentarios = document.getElementById("comentariosInput");
+        const inputTerms = document.getElementById("termsInput");
+
+        // Nuevos Elementos para Cupón y Resumen de Pago
+        const couponInput = document.getElementById("couponInput");
+        const couponSuccess = document.getElementById("couponSuccess");
+        const summaryBasePrice = document.getElementById("summaryBasePrice");
+        const summaryPersons = document.getElementById("summaryPersons");
+        const summaryDiscountRow = document.getElementById("summaryDiscountRow");
+        const summaryDiscount = document.getElementById("summaryDiscount");
+        const summaryTotal = document.getElementById("summaryTotal");
+
+        function updatePrice() {
+            const plan = selectedPlan.value;
+            let pricePerPerson = 499; // Premium por defecto
+            if (plan === "Básico") {
+                pricePerPerson = 199;
+            } else if (plan === "VIP") {
+                pricePerPerson = 899;
+            }
+
+            const numPersonas = Math.max(1, parseInt(inputPersonas.value) || 1);
+            const subtotal = pricePerPerson * numPersonas;
+
+            const couponCode = couponInput.value.trim().toUpperCase();
+            let discount = 0;
+            if (couponCode === "VIAGO20") {
+                discount = subtotal * 0.20;
+                couponSuccess.style.display = "block";
+                summaryDiscountRow.style.display = "flex";
+            } else {
+                couponSuccess.style.display = "none";
+                summaryDiscountRow.style.display = "none";
+            }
+
+            const total = subtotal - discount;
+
+            summaryBasePrice.textContent = "S/ " + pricePerPerson;
+            summaryPersons.textContent = numPersonas;
+            summaryDiscount.textContent = "-S/ " + discount.toFixed(2);
+            summaryTotal.textContent = "S/ " + total.toFixed(2);
+        }
+
+        // Eventos para actualizar en tiempo real
+        inputPersonas.addEventListener("input", updatePrice);
+        couponInput.addEventListener("input", updatePrice);
+
+        // Cargar datos del destino si viene desde destinos.html y correr precio inicial
+        window.addEventListener("load", () => {
+            updatePrice();
+            const destinoPrevio = sessionStorage.getItem("reservaPreviaDestino");
+            if (destinoPrevio) {
+                inputComentarios.value = "Hola, me gustaría solicitar una reserva para el destino: " + destinoPrevio + ". ";
+                sessionStorage.removeItem("reservaPreviaDestino");
+                inputComentarios.focus();
+            }
+        });
+
+        function setError(input, errorElementId, isValid) {
+            const errorElement = document.getElementById(errorElementId);
+            if (!isValid) {
+                input.style.boxShadow = "0 0 0 3px rgba(255, 71, 87, 0.3)";
+                input.style.border = "1px solid #ff4757";
+                errorElement.style.display = "block";
+            } else {
+                input.style.boxShadow = "0 0 0 3px rgba(25, 242, 163, 0.3)";
+                input.style.border = "1px solid #19f2a3";
+                errorElement.style.display = "none";
+            }
+        }
+
+        reservaForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let formValid = true;
+
+            if (inputNombre.value.trim().length < 3) { setError(inputNombre, "errorNombre", false); formValid = false; }
+            else { setError(inputNombre, "errorNombre", true); }
+
+            const wsRegex = /^[0-9+ ]{9,15}$/;
+            if (!wsRegex.test(inputWs.value.trim())) { setError(inputWs, "errorWs", false); formValid = false; }
+            else { setError(inputWs, "errorWs", true); }
+
+            if (inputPersonas.value === "" || parseInt(inputPersonas.value) < 1) { setError(inputPersonas, "errorPersonas", false); formValid = false; }
+            else { setError(inputPersonas, "errorPersonas", true); }
+
+            const fechaElegida = inputFecha.value;
+            const hoy = new Date().toISOString().split('T')[0];
+
+            if (fechaElegida === "" || fechaElegida < hoy) { setError(inputFecha, "errorFecha", false); formValid = false; }
+            else { setError(inputFecha, "errorFecha", true); }
+
+            const errorTerms = document.getElementById("errorTerms");
+            if (!inputTerms.checked) { errorTerms.style.display = "block"; formValid = false; }
+            else { errorTerms.style.display = "none"; }
+
+            // Si todo es válido, enviamos los datos a EmailJS
+            if (formValid) {
+                btnEnviar.textContent = "Enviando...";
+                btnEnviar.disabled = true;
+
+                // Construir comentarios con desglose de precios para el asesor
+                let comentariosConDetalles = inputComentarios.value;
+                const cuponAplicado = couponInput.value.trim().toUpperCase();
+                comentariosConDetalles += "\n\n--- Detalles de Pago ---\n";
+                comentariosConDetalles += "Plan: " + selectedPlan.value + "\n";
+                comentariosConDetalles += "Personas: " + inputPersonas.value + "\n";
+                if (cuponAplicado === "VIAGO20") {
+                    comentariosConDetalles += "Cupón Aplicado: " + cuponAplicado + " (20% de descuento)\n";
+                }
+                comentariosConDetalles += "Monto Total Estimado: " + document.getElementById("summaryTotal").textContent;
+
+                // Objeto que hace match con las variables {{}} de tu plantilla en EmailJS
+                const templateParams = {
+                    nombre: inputNombre.value,
+                    whatsapp: inputWs.value,
+                    personas: inputPersonas.value,
+                    fecha: inputFecha.value,
+                    plan: selectedPlan.value,
+                    comentarios: comentariosConDetalles,
+                    total_pago: document.getElementById("summaryTotal").textContent,
+                    cupon_aplicado: cuponAplicado
+                };
+
+                // cdcls proporcionadas
+                emailjs.send("service_0isr6he", "template_xadg2jc", templateParams)
+                    .then(function (response) {
+
+                        console.log("¡ÉXITO! EmailJS respondió:", response);
+
+                        // 2. FORZAMOS EL GUARDADO AQUÍ MISMO
+                        try {
+                            let reservas = parseInt(localStorage.getItem("misReservas")) || 0;
+                            reservas += 1;
+                            localStorage.setItem("misReservas", reservas);
+                            console.log("LocalStorage actualizado a:", reservas);
+                        } catch (e) {
+                            console.error("Error crítico salvando en LocalStorage:", e);
+                        }
+
+                        // Email enviado con éxito
+                        successModal.classList.add("active");
+
+                        overlay.classList.add("active");
+                        //para sumar el total de reservas
+
+
+
+                        reservaForm.reset();
+                        updatePrice(); // Restablece el precio a Premium S/ 499 por defecto
+                        const allInputs = document.querySelectorAll(".experience-form input, .experience-form textarea");
+                        allInputs.forEach(inp => {
+                            inp.style.border = "none";
+                            inp.style.boxShadow = "none";
+                        });
+                    }, function (error) {
+                        alert("Hubo un error al procesar tu reserva. Inténtalo de nuevo.");
+                        console.log("Error EmailJS:", error);
+                    })
+                    .finally(function () {
+                        // Se ejecuta siempre, sin importar si falló o fue exitoso
+                        btnEnviar.textContent = "Continuar con asesor";
+                        btnEnviar.disabled = false;
+                    });
+            }
+        });
+
+        closeSuccess.addEventListener("click", () => {
+            successModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+    </script>
+    <script src="cart.js"></script>
+</body>
+
+</html>

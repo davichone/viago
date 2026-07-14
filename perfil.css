@@ -1,0 +1,408 @@
+/* =========================================================
+   RESET Y GLOBALES
+========================================================= */.goog-te-banner-frame, 
+.goog-te-banner, 
+.skiptranslate, 
+iframe.goog-te-banner-frame, 
+#goog-gt-tt, 
+.goog-te-balloon-frame {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* 3. Eliminar el parpadeo azul o amarillo cuando pasas el cursor sobre los textos traducidos */
+.goog-text-highlight {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+
+/* 4. Evitar que se rompa el diseño del contenedor principal si Google intenta meter un margen */
+.goog-te-gadget {
+    font-size: 0 !important; /* Esconde texto residual de Google */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f5f5f7;
+    color: #333;
+    top: 0 !important; position: static !important;
+}
+
+/* =========================================================
+   HEADER BASE (ESCRITORIO)
+========================================================= */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 15px 30px;
+    background: #0f9d58;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: auto;
+    width: 100%;
+    gap: 20px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo img {
+    width: 120px;
+    display: block;
+    filter: brightness(0) invert(1); /* Logo en blanco */
+}
+
+.language-select {
+    border: none;
+    outline: none;
+    background: #11c76f;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
+    color: #111;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 15px;   
+    align-items: center;
+}
+
+.contact-btn {
+    background: #11c76f;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.contact-btn:hover {
+    background: #111;
+    transform: translateY(-2px);
+}
+
+.account-btn {
+    background: #111;
+}
+
+.account-btn:hover {
+    background: #11c76f;
+}
+
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    z-index: 1200;
+}
+
+/* =========================================================
+   ESTILOS ADICIONALES PARA EL MENÚ MÓVIL (OCULTO POR DEFECTO)
+========================================================= */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Oculto a la izquierda */
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    z-index: 1100;
+    padding: 100px 30px 40px;
+    transition: 0.4s ease;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+}
+
+.mobile-menu.active {
+    left: 0; /* Desplaza el menú a la vista */
+}
+
+.mobile-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: #111;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 1050;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================================
+   MEDIA QUERY - MODO RESPONSIVE (TABLETS Y CELULARES)
+========================================================= */
+@media (max-width: 980px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    /* Ocultamos navegación de escritorio */
+    .nav-links, .nav-actions {
+        display: none !important;
+    }
+
+    /* Mostramos el icono de hamburguesa */
+    .hamburger {
+        display: block;
+    }
+    
+    .logo img {
+        width: 100px;
+    }
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+.profile-container {
+    max-width: 1000px;
+    margin: 190px auto 50px auto;
+    /* 120px empuja el contenido debajo del header */
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* =========================================================
+   TARJETA DE USUARIO
+========================================================= */
+.profile-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    position: relative;
+}
+
+.profile-avatar {
+    font-size: 6rem;
+    color: #e0e0e0;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h2 {
+    font-size: 2rem;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.email-text {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+
+.status-badge {
+    background: #e8fdf5;
+    color: #0f9d58;
+    padding: 8px 15px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* Botón Cerrar Sesión */
+.logout-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #ff2e43;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+/* =========================================================
+   DASHBOARD (TARJETAS DE ACTIVIDAD)
+========================================================= */
+.profile-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+
+.dashboard-card i {
+    font-size: 2.5rem;
+    color: #19f2a3;
+    margin-bottom: 15px;
+}
+
+.dashboard-card h3 {
+    font-size: 2.5rem;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.dashboard-card p {
+    color: #666;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* =========================================================
+   RESPONSIVO MÓVIL
+========================================================= */
+@media(max-width: 950px) {
+    header {
+        padding: 15px 20px;
+    }
+
+    .nav-links,
+    .nav-buttons {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .nav-left {
+        gap: 12px;
+    }
+
+    .logo img {
+        width: 90px;
+    }
+
+    .language-select {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+}
+
+@media(max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .logout-btn {
+        width: 100%;
+        margin-top: 15px;
+    }
+}
+
+.main-footer { background-color: #1a1a1a; color: #fff; padding-top: 4rem; font-family: 'Inter', sans-serif; }
+.footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem 2rem; }
+.footer-logo { width: 120px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+.footer-col p { color: #a0a0a0; line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 1.5rem; position: relative; padding-bottom: 10px; }
+.footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background-color: #2196f3; border-radius: 2px; }
+.footer-col ul { list-style: none; padding: 0; }
+.footer-col ul li { margin-bottom: 1rem; }
+.footer-col ul li a, .footer-col ul.contact-info li { color: #a0a0a0; text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+.footer-col ul li a:hover { color: #2196f3; transform: translateX(8px); }
+.contact-info i { color: #2196f3; font-size: 1.1rem; }
+.social-links { display: flex; gap: 15px; }
+.social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #333; color: #fff; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+.social-links a:hover { background-color: #2196f3; transform: translateY(-5px); }
+.footer-bottom { background-color: #111; text-align: center; padding: 1.5rem 2rem; color: #777; font-size: 0.9rem; border-top: 1px solid #333; }

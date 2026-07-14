@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaGO.pe - Destinos</title>
+
+    <link rel="stylesheet" href="destinos.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="destinos-filtros.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "C9NQzFyI2RSPDWsRU",
+            });
+        })();
+    </script>
+
+    <style>
+        /* =========================================================
+   DESTINOS - Buscador, Filtros, Carrito por destino
+   y Calculadora de Cotización
+========================================================= */
+
+/* ---------- Toolbar (buscador + filtros) ---------- */
+.destinos-toolbar {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    padding: 22px 26px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 22px;
+}
+
+.search-box {
+    flex: 1 1 260px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f6f8;
+    border-radius: 40px;
+    padding: 12px 20px;
+}
+.search-box i { color: #0f9d58; font-size: 15px; }
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #111;
+}
+.search-box input::placeholder { color: #999; }
+
+.region-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.region-btn {
+    border: 2px solid #e6e6e6;
+    background: #fff;
+    color: #555;
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.25s;
+    white-space: nowrap;
+}
+.region-btn:hover { border-color: #0f9d58; color: #0f9d58; }
+.region-btn.active {
+    background: #0f9d58;
+    border-color: #0f9d58;
+    color: #fff;
+}
+
+.price-filter {
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 200px;
+}
+.price-filter label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+}
+.price-filter label span { color: #0f9d58; }
+.price-filter input[type="range"] {
+    width: 100%;
+    accent-color: #0f9d58;
+    cursor: pointer;
+}
+
+.no-resultados {
+    max-width: 1200px;
+    margin: -10px auto 30px;
+    text-align: center;
+    background: #fff8f0;
+    border: 1px dashed #ff7b00;
+    color: #ff7b00;
+    font-weight: 600;
+    padding: 18px;
+    border-radius: 14px;
+}
+
+/* ---------- Botón "agregar al carrito" sobre la card ---------- */
+.destination-card {
+    position: relative;
+}
+.cart-btn-card {
+    position: absolute;
+    top: 16px;
+    right: 58px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f9d58;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 5;
+    transition: 0.25s;
+}
+.cart-btn-card:hover {
+    background: #0f9d58;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* ---------- Botones del modal de detalle ---------- */
+.modal-footer-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.add-cart-btn-modal {
+    background: #fff;
+    border: 2px solid #0f9d58;
+    color: #0f9d58;
+    padding: 13px 20px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.25s;
+}
+.add-cart-btn-modal:hover { background: #0f9d58; color: #fff; }
+
+/* ---------- Calculadora de Cotización ---------- */
+.quote-calculator {
+    max-width: 1000px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+.quote-header { text-align: center; margin-bottom: 35px; }
+.quote-header span {
+    color: #0f9d58;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.quote-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    color: #111;
+    margin: 8px 0 12px;
+}
+.quote-header p { color: #666; max-width: 560px; margin: 0 auto; }
+
+.quote-box {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+.quote-form {
+    flex: 1 1 320px;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+.quote-form .form-group { display: flex; flex-direction: column; gap: 6px; }
+.quote-form label { font-weight: 700; font-size: 14px; color: #333; }
+.quote-form select,
+.quote-form input {
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+.quote-form select:focus,
+.quote-form input:focus { border-color: #0f9d58; }
+.quote-form .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.quote-result {
+    flex: 1 1 280px;
+    background: linear-gradient(160deg, #0f9d58, #0b7a44);
+    color: #fff;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+}
+.quote-result-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+.quote-result-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+}
+.quote-result-note {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 10px;
+}
+.quote-result .whatsapp-checkout-btn { width: 100%; }
+
+@media (max-width: 700px) {
+    .quote-form .form-grid-2 { grid-template-columns: 1fr; }
+    .cart-btn-card { top: 12px; right: 52px; width: 32px; height: 32px; }
+}
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo">
+                    <img src="img/LOGO.png" alt="ViaGo Perú">
+                </a>
+                 <select class="language-select" id="language-changer">
+        <option value="es">ES Español</option>
+        <option value="en">EN English</option>
+    </select>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-down"></i></a></li>
+
+                <!--  <li><a href="#">Blog <i class="fa-solid fa-chevron-down"></i></a></li> -->
+                <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Mi carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+
+                <a href="https://wa.me/942169773" target="_blank" class="contact-btn">
+                    <i class="fa-regular fa-comment"></i> Contáctanos
+                </a>
+
+                <a href="perfil.html" target="_blank" class="contact-btn">
+                    <i class="fa-solid fa-user"></i> Mi cuenta
+                </a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="index.html">Inicio <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="destinos.html">Destinos <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="reservas.html">Reservas <i class="fa-solid fa-chevron-right"></i></a></li>
+            <li><a href="planes.html">Planes <i class="fa-solid fa-chevron-right"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <section class="destinations">
+        <div class="destinations-header">
+            <span> Explora el Perú!</span>
+            <h2>Destinos increíbles para tu próxima aventura</h2>
+        </div>
+
+        <div class="destinos-toolbar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="buscadorDestino" placeholder="Buscar destino por nombre...">
+            </div>
+
+            <div class="region-filters" id="regionFilters">
+                <button class="region-btn active" data-region="todos">Todos</button>
+                <button class="region-btn" data-region="costa">Costa</button>
+                <button class="region-btn" data-region="sur">Sur</button>
+                <button class="region-btn" data-region="selva">Selva</button>
+            </div>
+
+            <div class="price-filter">
+                <label for="filtroPrecio">Precio máximo: <span id="precioValor">S/ 900</span></label>
+                <input type="range" id="filtroPrecio" min="150" max="900" step="10" value="900">
+            </div>
+        </div>
+
+        <p id="noResultados" class="no-resultados" style="display:none;">
+            <i class="fa-solid fa-magnifying-glass-minus"></i> No se encontraron destinos con esos filtros.
+        </p>
+
+        <div class="destinations-grid" id="destinationsGrid">
+
+            <div class="destination-card span-2x2" data-title="Lima" data-price="Desde S/ 199" data-region="costa" data-price-num="199"
+                data-description="Descubre la costa limeña, su gastronomía y atardeceres frente al mar."
+                data-image="img/lima.jpg">
+                <div class="heart-btn" data-destino="lima"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="lima" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/lima.jpg" alt="Lima">
+                <div class="overlay-card"></div>
+                <h3>Lima</h3>
+            </div>
+
+            <div class="destination-card span-1x2" data-title="Cusco" data-price="Desde S/ 499" data-region="sur" data-price-num="499"
+                data-description="Vive la magia histórica de Cusco, sus calles de piedra y herencia inca."
+                data-image="img/cusco.jpg">
+                <div class="heart-btn" data-destino="cusco"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="cusco" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/cusco.jpg" alt="Cusco">
+                <div class="overlay-card"></div>
+                <h3>Cusco</h3>
+            </div>
+
+            <div class="destination-card span-1x1" data-title="Puno" data-price="Desde S/ 299" data-region="sur" data-price-num="299"
+                data-description="Navega por el imponente Lago Titicaca y conoce las islas de los Uros."
+                data-image="img/puno.jpg">
+                <div class="heart-btn" data-destino="puno"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="puno" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/puno.jpg" alt="Puno">
+                <div class="overlay-card"></div>
+                <h3>Puno</h3>
+            </div>
+
+            <div class="destination-card span-2x1" data-title="Arequipa" data-price="Desde S/ 259" data-region="sur" data-price-num="259"
+                data-description="Explora la imponente Ciudad Blanca custodiada por el volcán Misti."
+                data-image="img/arequipa.jpg">
+                <div class="heart-btn" data-destino="arequipa"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="arequipa" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/arequipa.jpg" alt="Arequipa">
+                <div class="overlay-card"></div>
+                <h3>Arequipa</h3>
+            </div>
+
+            <div class="destination-card span-2x2" data-title="Machu Picchu" data-price="Desde S/ 899" data-region="sur" data-price-num="899"
+                data-description="La maravilla del mundo que debes visitar al menos una vez en la vida."
+                data-image="img/MachuPicchu.jpg">
+                <div class="heart-btn" data-destino="machupicchu"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="machupicchu" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/MachuPicchu.jpg" alt="Machu Picchu">
+                <div class="overlay-card"></div>
+                <h3>Machu Picchu</h3>
+            </div>
+
+            <div class="destination-card span-1x2" data-title="Ica" data-price="Desde S/ 189" data-region="costa" data-price-num="189"
+                data-description="Aventura extrema en tubulares por las dunas de la Huacachina."
+                data-image="img/ica.jpg">
+                <div class="heart-btn" data-destino="ica"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="ica" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/ica.jpg" alt="Ica">
+                <div class="overlay-card"></div>
+                <h3>Ica</h3>
+            </div>
+
+            <div class="destination-card span-2x1" data-title="Paracas" data-price="Desde S/ 350" data-region="costa" data-price-num="350"
+                data-description="Reserva natural con paisajes desérticos hermosos e islas llenas de fauna."
+                data-image="img/paracas.jpg">
+                <div class="heart-btn" data-destino="paracas"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="paracas" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/paracas.jpg" alt="Paracas">
+                <div class="overlay-card"></div>
+                <h3>Paracas</h3>
+            </div>
+
+            <div class="destination-card span-1x1" data-title="Chan Chan" data-price="Desde S/ 280" data-region="costa" data-price-num="280"
+                data-description="Recorre la ciudadela de barro más grande de toda América en Trujillo."
+                data-image="img/chanchan.jpg">
+                <div class="heart-btn" data-destino="chanchan"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="chanchan" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/chanchan.jpg" alt="Chan Chan">
+                <div class="overlay-card"></div>
+                <h3>Chan Chan</h3>
+            </div>
+
+            <div class="destination-card span-2x2" data-title="Huaraz" data-price="Desde S/ 380" data-region="sur" data-price-num="380"
+                data-description="El paraíso del trekking. Explora la majestuosa Laguna 69 y los nevados de la Cordillera Blanca."
+                data-image="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?q=80&w=800&auto=format&fit=crop">
+                <div class="heart-btn" data-destino="huaraz"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="huaraz" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?q=80&w=800&auto=format&fit=crop"
+                    alt="Huaraz">
+                <div class="overlay-card"></div>
+                <h3>Huaraz</h3>
+            </div>
+
+            <div class="destination-card span-2x1" data-title="Iquitos" data-price="Desde S/ 650" data-region="selva" data-price-num="650"
+                data-description="Adéntrate en lo más profundo de la Amazonía peruana y navega por el Río Amazonas."
+                data-image="img/iquitos.jpg">
+                <div class="heart-btn" data-destino="iquitos"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="iquitos" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/iquitos.jpg" alt="Iquitos">
+                <div class="overlay-card"></div>
+                <h3>Iquitos</h3>
+            </div>
+
+            <div class="destination-card span-1x2" data-title="Máncora" data-price="Desde S/ 420" data-region="costa" data-price-num="420"
+                data-description="Disfruta del sol eterno del norte peruano, playas cálidas y excelente surf."
+                data-image="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=800&auto=format&fit=crop">
+                <div class="heart-btn" data-destino="mancora"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="mancora" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=800&auto=format&fit=crop"
+                    alt="Máncora">
+                <div class="overlay-card"></div>
+                <h3>Máncora</h3>
+            </div>
+            <div class="destination-card span-1x2" data-title="Villa Rica" data-price="Desde S/ 320" data-region="selva" data-price-num="320"
+                data-description="Disfruta de la Laguna Oconal y el mejor cafe del mundo!"
+                data-image="img/villarica.jpg">
+                <div class="heart-btn" data-destino="villarica"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="villarica" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/villarica.jpg" alt="Villa Rica">
+                <div class="overlay-card"></div>
+                <h3>Villa Rica</h3>
+            </div>
+
+            <div class="destination-card span-1x1" data-title="Tarapoto" data-price="Desde S/ 310" data-region="selva" data-price-num="310"
+                data-description="Descubre la selva alta, impresionantes caídas de agua y la mística Laguna Azul."
+                data-image="img/arequipa2.jpg">
+                <div class="heart-btn" data-destino="tarapoto"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="tarapoto" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/arequipa2.jpg" alt="Tarapoto">
+                <div class="overlay-card"></div>
+                <h3>Tarapoto</h3>
+            </div>
+
+            <div class="destination-card span-1x1" data-title="Puno" data-price="Desde S/ 299" data-region="sur" data-price-num="299"
+                data-description="Navega por el imponente Lago Titicaca y conoce las islas de los Uros."
+                data-image="img/puno.jpg">
+                <div class="heart-btn" data-destino="puno"><i class="fa-solid fa-heart"></i></div>
+                <div class="cart-btn-card" data-destino="puno" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></div>
+                <img src="img/puno.jpg" alt="Puno">
+                <div class="overlay-card"></div>
+                <h3>Puno</h3>
+            </div>
+
+        </div>
+
+        <div class="custom-destination-cta">
+            <p>¿No encuentras tu destino deseado?</p>
+            <h3>¡Haznoslo saber y lo diseñamos a tu medida!</h3>
+            <button class="open-custom-modal-btn" id="openCustomBtn">Solicitar Destino Personalizado</button>
+        </div>
+    </section>
+
+    <section class="quote-calculator">
+        <div class="quote-header">
+            <span>Cotiza tu viaje</span>
+            <h2>Calculadora de Cotización</h2>
+            <p>Elige un destino, cuántas personas viajan y por cuántos días, y te damos un precio estimado al instante.</p>
+        </div>
+
+        <div class="quote-box">
+            <div class="quote-form">
+                <div class="form-group">
+                    <label>Destino</label>
+                    <select id="quoteDestino"></select>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label>Nº de personas</label>
+                        <input type="number" id="quotePersonas" min="1" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Nº de días</label>
+                        <input type="number" id="quoteDias" min="1" value="3">
+                    </div>
+                </div>
+                <button type="button" id="btnCalcularCotizacion" class="submit-custom-btn">Calcular precio estimado</button>
+            </div>
+
+            <div class="quote-result" id="quoteResult">
+                <span class="quote-result-label">Precio estimado</span>
+                <span class="quote-result-price" id="quoteResultPrice">S/ 0.00</span>
+                <p class="quote-result-note">*Precio referencial. El precio final se confirma por WhatsApp.</p>
+                <button type="button" id="btnCotizarWhatsApp" class="whatsapp-checkout-btn">
+                    <i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="destinationModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <img src="" id="modalImage" alt="Destino">
+            <div class="modal-info">
+                <h2 id="modalTitle"></h2>
+                <p id="modalDescription"></p>
+                <div class="modal-footer" style="margin-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <span id="modalPrice"></span>
+                    <div class="modal-footer-buttons">
+                        <button id="btnAgregarCarritoModal" class="add-cart-btn-modal"><i class="fa-solid fa-cart-plus"></i> Agregar al carrito</button>
+                        <button id="btnReservarAhora" class="reserve-now-btn">Reservar ahora <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="customModal">
+        <div class="modal-content custom-form-content">
+            <span class="close-modal" id="closeCustomModal">&times;</span>
+            <div class="custom-modal-header">
+                <h3>Tu Destino Ideal ✈️</h3>
+            </div>
+            <div class="custom-modal-body">
+                <form id="customDestinationForm" class="custom-form">
+                    <div class="form-group">
+                        <label>¿Qué ruta o ciudad te gustaría visitar?</label>
+                        <input type="text" id="customRuta" placeholder="Ej: Tarapoto, Chachapoyas...">
+                        <span class="error-msg" id="errRuta">Por favor, escribe un destino.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad de personas que viajarían</label>
+                        <input type="number" id="customPersonas" placeholder="Ej: 2">
+                        <span class="error-msg" id="errPersonas">Ingresa un número válido (mínimo 1).</span>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Días de viaje</label>
+                            <input type="number" id="customDias" placeholder="Ej: 4">
+                            <span class="error-msg" id="errDias">Mínimo 1 día.</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Presupuesto estimado (S/)</label>
+                            <input type="number" id="customPresupuesto" placeholder="Ej: 600">
+                            <span class="error-msg" id="errPresupuesto">Ingresa un monto aproximado.</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-custom-btn" id="btnSendCustom">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="img/LOGO.png" alt="ViaGo Perú" class="footer-logo">
+                </a>
+                <p>Viajes a medida para descubrir el vibrante Perú. Explora el mundo a través de experiencias culturales
+                    únicas y guías expertos.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/942169773" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                    <li><a href="destinos.html">Destinos</a></li>
+                    <li><a href="planes.html">Planes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contáctanos</h4>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> Lima, Perú</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@viago.pe</li>
+                    <li><i class="fa-solid fa-phone"></i> +51 942 169 773</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ViaGO.pe. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+
+        <!-- 1. Configuración del traductor de Google -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'es',
+        includedLanguages: 'en,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+
+<!-- 2. Librería oficial de Google -->
+<!-- Asegúrate de que empiece con https: y no con // -->
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- 3. El truco para conectar tu <select> personalizado con Google -->
+<script type="text/javascript">
+function conectarTraductor() {
+    const selectorPersonalizado = document.getElementById('language-changer');
+    if (!selectorPersonalizado) return;
+
+    // --- FUNCIÓN PARA GUARDAR LA COOKIE GLOBAL ---
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        // 'path=/' hace que la cookie sea accesible en todas las páginas de la web
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // --- FUNCIÓN PARA LEER LA COOKIE ---
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // 1. REVISAR SI YA EXISTE UN IDIOMA GUARDADO AL CARGAR LA PÁGINA
+    const idiomaGuardado = getCookie('googtrans');
+    if (idiomaGuardado) {
+        // Extrae el código de idioma (ej: de '/es/en' extrae 'en')
+        const codigoIdioma = idiomaGuardado.split('/').pop(); 
+        selectorPersonalizado.value = codigoIdioma;
+        
+        // Si no estamos en la página por defecto y no se ha aplicado el hash, lo forzamos
+        if (codigoIdioma !== 'es' && !window.location.hash.includes('googtrans')) {
+            window.location.hash = `#googtrans(es|${codigoIdioma})`;
+        }
+    }
+
+    // 2. ESCUCHAR CUANDO EL USUARIO CAMBIE EL SELECT MANUALMENTE
+    selectorPersonalizado.addEventListener('change', function() {
+        const idiomaSeleccionado = this.value;
+        const googleSelect = document.querySelector('.goog-te-combo');
+        
+        // Formato que Google Translate espera en su cookie interna: '/es/en' o '/es/es'
+        const valorCookie = `/es/${idiomaSeleccionado}`;
+        setCookie('googtrans', valorCookie, 7); // Guardar por 7 días
+
+        if (googleSelect) {
+            googleSelect.value = idiomaSeleccionado;
+            googleSelect.dispatchEvent(new Event('change', { bubbles: false }));
+        } else {
+            // Plan B: Forzar mediante URL Hash si el widget tarda en responder
+            window.location.hash = `#googtrans(es|${idiomaSeleccionado})`;
+            window.location.reload();
+        }
+    });
+}
+
+// Inicializar cuando el HTML esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', conectarTraductor);
+} else {
+    conectarTraductor();
+}
+</script>
+    <script>
+        // Lógica del Modal Detalle Corriente
+        const destinationCards = document.querySelectorAll(".destination-card");
+        const modal = document.getElementById("destinationModal");
+        const modalImage = document.getElementById("modalImage");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const modalPrice = document.getElementById("modalPrice");
+        const closeModal = document.getElementById("closeModal");
+        const btnReservarAhora = document.getElementById("btnReservarAhora");
+        const btnAgregarCarritoModal = document.getElementById("btnAgregarCarritoModal");
+        let cardActiva = null;
+
+        destinationCards.forEach(card => {
+            card.addEventListener("click", () => {
+                modal.classList.add("active");
+                cardActiva = card;
+                modalImage.src = card.dataset.image;
+                modalTitle.textContent = card.dataset.title;
+                modalDescription.textContent = card.dataset.description;
+                modalPrice.textContent = card.dataset.price;
+            });
+        });
+
+        closeModal.addEventListener("click", () => {
+            modal.classList.remove("active");
+        });
+
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) modal.classList.remove("active");
+        });
+
+        // Lógica del Botón "Reservar ahora"
+        if (btnReservarAhora) {
+            btnReservarAhora.addEventListener("click", () => {
+                sessionStorage.setItem("reservaPreviaDestino", modalTitle.textContent);
+                window.location.href = "reservas.html";
+            });
+        }
+
+        // Lógica del Botón "Agregar al carrito" dentro del modal
+        // (Solo agrega el destino en sí, nunca planes/paquetes)
+        if (btnAgregarCarritoModal) {
+            btnAgregarCarritoModal.addEventListener("click", () => {
+                if (!cardActiva) return;
+                addToCart({
+                    id: "destino-" + (cardActiva.querySelector(".heart-btn")?.dataset.destino || cardActiva.dataset.title),
+                    nombre: cardActiva.dataset.title,
+                    precio: parseFloat(cardActiva.dataset.priceNum),
+                    imagen: cardActiva.dataset.image
+                });
+            });
+        }
+
+        // Lógica de Favoritos (Corazones)
+        const corazones = document.querySelectorAll(".heart-btn");
+        corazones.forEach(corazon => {
+            const destino = corazon.dataset.destino;
+            if (localStorage.getItem("fav_" + destino) === "true") {
+                corazon.classList.add("liked");
+            }
+
+            corazon.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evitar abrir el modal
+                corazon.classList.toggle("liked");
+
+                let totalFavoritos = parseInt(localStorage.getItem("misFavoritos")) || 0;
+                if (corazon.classList.contains("liked")) {
+                    totalFavoritos += 1;
+                    localStorage.setItem("fav_" + destino, "true");
+                } else {
+                    totalFavoritos = Math.max(0, totalFavoritos - 1);
+                    localStorage.removeItem("fav_" + destino);
+                }
+                localStorage.setItem("misFavoritos", totalFavoritos);
+            });
+        });
+
+        // Lógica del botón "Agregar al carrito" directamente sobre cada card
+        // Solo agrega el destino (nunca un plan/paquete)
+        const botonesCarritoCard = document.querySelectorAll(".cart-btn-card");
+        botonesCarritoCard.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation(); // Evitar abrir el modal
+                const card = btn.closest(".destination-card");
+                if (!card) return;
+                addToCart({
+                    id: "destino-" + btn.dataset.destino,
+                    nombre: card.dataset.title,
+                    precio: parseFloat(card.dataset.priceNum),
+                    imagen: card.dataset.image
+                });
+            });
+        });
+
+        // Lógica del Scroll del Header
+        const header = document.getElementById("header");
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        // Lógica del Menú Móvil
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("overlay");
+
+        hamburger.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // ================= NUEVA LÓGICA: VENTANA EMERGENTE A MEDIDA Y EMAILJS =================
+        const customModal = document.getElementById("customModal");
+        const openCustomBtn = document.getElementById("openCustomBtn");
+        const closeCustomModal = document.getElementById("closeCustomModal");
+        const customForm = document.getElementById("customDestinationForm");
+        const btnSendCustom = document.getElementById("btnSendCustom");
+
+        // Abrir ventana a medida
+        openCustomBtn.addEventListener("click", () => {
+            customModal.classList.add("active");
+        });
+
+        // Cerrar ventana a medida
+        closeCustomModal.addEventListener("click", () => {
+            customModal.classList.remove("active");
+        });
+
+        customModal.addEventListener("click", (e) => {
+            if (e.target === customModal) customModal.classList.remove("active");
+        });
+
+        // Función para cambiar estilos de error
+        function setValidationStyle(input, errorId, isValid) {
+            const errSpan = document.getElementById(errorId);
+            if (!isValid) {
+                input.style.border = "1px solid #ff4757";
+                input.style.boxShadow = "0 0 0 3px rgba(255, 71, 87, 0.2)";
+                errSpan.style.display = "block";
+            } else {
+                input.style.border = "1px solid #19f2a3";
+                input.style.boxShadow = "none";
+                errSpan.style.display = "none";
+            }
+        }
+
+        // Evento Submit de la solicitud a medida (Semana 13)
+        customForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const ruta = document.getElementById("customRuta");
+            const personas = document.getElementById("customPersonas");
+            const dias = document.getElementById("customDias");
+            const presupuesto = document.getElementById("customPresupuesto");
+
+            let isFormValid = true;
+
+            if (ruta.value.trim() === "") { setValidationStyle(ruta, "errRuta", false); isFormValid = false; }
+            else { setValidationStyle(ruta, "errRuta", true); }
+
+            if (personas.value === "" || parseInt(personas.value) < 1) { setValidationStyle(personas, "errPersonas", false); isFormValid = false; }
+            else { setValidationStyle(personas, "errPersonas", true); }
+
+            if (dias.value === "" || parseInt(dias.value) < 1) { setValidationStyle(dias, "errDias", false); isFormValid = false; }
+            else { setValidationStyle(dias, "errDias", true); }
+
+            if (presupuesto.value === "" || parseInt(presupuesto.value) < 1) { setValidationStyle(presupuesto, "errPresupuesto", false); isFormValid = false; }
+            else { setValidationStyle(presupuesto, "errPresupuesto", true); }
+
+            if (isFormValid) {
+                btnSendCustom.textContent = "Enviando...";
+                btnSendCustom.disabled = true;
+
+                // Mapeo adaptado a las variables del Template existente para no romper nada
+                const templateParams = {
+                    nombre: "Ruta Solicitada: " + ruta.value,
+                    whatsapp: "Revisar vía Email (Destino a medida)",
+                    personas: personas.value,
+                    fecha: "Días calculados: " + dias.value,
+                    plan: "Personalizado (A medida)",
+                    comentarios: "Presupuesto estimado asignado por el cliente: S/ " + presupuesto.value
+                };
+
+                emailjs.send("service_0isr6he", "template_xadg2jc", templateParams)
+                    .then(function () {
+                        btnSendCustom.textContent = "¡Enviado con Éxito! \u2714";
+                        btnSendCustom.style.background = "#19f2a3";
+                        btnSendCustom.style.color = "#000";
+
+                        setTimeout(() => {
+                            customModal.classList.remove("active");
+                            customForm.reset();
+                            btnSendCustom.textContent = "Enviar Solicitud";
+                            btnSendCustom.style.background = "#000";
+                            btnSendCustom.style.color = "#fff";
+
+                            // Resetear bordes
+                            [ruta, personas, dias, presupuesto].forEach(inp => {
+                                inp.style.border = "none";
+                                inp.style.boxShadow = "none";
+                            });
+                        }, 2500);
+                    }, function (error) {
+                        alert("Hubo un fallo técnico al despachar tu solicitud.");
+                        console.log("Fallo EmailJS:", error);
+                        btnSendCustom.textContent = "Enviar Solicitud";
+                        btnSendCustom.disabled = false;
+                    });
+            }
+        });
+    </script>
+
+    
+    <script src="cart.js"></script>
+
+    <script>
+        // ================= BUSCADOR + FILTROS DE REGIÓN Y PRECIO =================
+        (function () {
+            const cards = Array.from(document.querySelectorAll("#destinationsGrid .destination-card"));
+            const inputBuscar = document.getElementById("buscadorDestino");
+            const botonesRegion = document.querySelectorAll(".region-btn");
+            const sliderPrecio = document.getElementById("filtroPrecio");
+            const precioValor = document.getElementById("precioValor");
+            const noResultados = document.getElementById("noResultados");
+
+            let regionActiva = "todos";
+
+            function aplicarFiltros() {
+                const texto = inputBuscar.value.trim().toLowerCase();
+                const precioMax = parseInt(sliderPrecio.value, 10);
+                let visibles = 0;
+
+                cards.forEach(card => {
+                    const titulo = (card.dataset.title || "").toLowerCase();
+                    const region = card.dataset.region || "";
+                    const precio = parseInt(card.dataset.priceNum, 10) || 0;
+
+                    const coincideTexto = titulo.includes(texto);
+                    const coincideRegion = regionActiva === "todos" || region === regionActiva;
+                    const coincidePrecio = precio <= precioMax;
+
+                    const mostrar = coincideTexto && coincideRegion && coincidePrecio;
+                    card.style.display = mostrar ? "" : "none";
+                    if (mostrar) visibles++;
+                });
+
+                noResultados.style.display = visibles === 0 ? "block" : "none";
+            }
+
+            inputBuscar.addEventListener("input", aplicarFiltros);
+
+            botonesRegion.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    botonesRegion.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    regionActiva = btn.dataset.region;
+                    aplicarFiltros();
+                });
+            });
+
+            sliderPrecio.addEventListener("input", () => {
+                precioValor.textContent = "S/ " + sliderPrecio.value;
+                aplicarFiltros();
+            });
+
+            aplicarFiltros();
+        })();
+
+        // ================= CALCULADORA DE COTIZACIÓN =================
+        (function () {
+            const selectDestino = document.getElementById("quoteDestino");
+            const inputPersonas = document.getElementById("quotePersonas");
+            const inputDias = document.getElementById("quoteDias");
+            const btnCalcular = document.getElementById("btnCalcularCotizacion");
+            const resultPrice = document.getElementById("quoteResultPrice");
+            const btnCotizarWhatsApp = document.getElementById("btnCotizarWhatsApp");
+
+            // Poblar el select con los destinos (sin repetir nombres)
+            const cards = Array.from(document.querySelectorAll("#destinationsGrid .destination-card"));
+            const vistos = new Set();
+            cards.forEach(card => {
+                const titulo = card.dataset.title;
+                if (vistos.has(titulo)) return;
+                vistos.add(titulo);
+
+                const opcion = document.createElement("option");
+                opcion.value = card.dataset.priceNum;
+                opcion.textContent = titulo;
+                selectDestino.appendChild(opcion);
+            });
+
+            // Fórmula referencial: precio base por persona + costo incremental por día extra
+            function calcularCotizacion() {
+                const precioBase = parseFloat(selectDestino.value) || 0;
+                const personas = Math.max(1, parseInt(inputPersonas.value, 10) || 1);
+                const dias = Math.max(1, parseInt(inputDias.value, 10) || 1);
+
+                const costoPorDiaExtra = precioBase * 0.35;
+                const totalPorPersona = precioBase + (dias - 1) * costoPorDiaExtra;
+                const total = totalPorPersona * personas;
+
+                resultPrice.textContent = "S/ " + total.toFixed(2);
+                return total;
+            }
+
+            btnCalcular.addEventListener("click", calcularCotizacion);
+
+            btnCotizarWhatsApp.addEventListener("click", () => {
+                const total = calcularCotizacion();
+                const destinoNombre = selectDestino.options[selectDestino.selectedIndex]?.textContent || "";
+                const personas = inputPersonas.value;
+                const dias = inputDias.value;
+
+                let mensaje = `Hola ViaGO 👋, quisiera una cotización para:%0A%0A`;
+                mensaje += `📍 Destino: ${destinoNombre}%0A`;
+                mensaje += `👥 Personas: ${personas}%0A`;
+                mensaje += `📅 Días: ${dias}%0A`;
+                mensaje += `%0AEstimado: S/ ${total.toFixed(2)}`;
+
+                window.open(`https://wa.me/942169773?text=${mensaje}`, "_blank");
+            });
+
+            // Calcular un estimado inicial al cargar
+            calcularCotizacion();
+        })();
+    </script>
+</body>
+
+</html>

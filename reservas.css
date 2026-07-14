@@ -1,0 +1,232 @@
+/* =========================================================
+   RESET Y GLOBALES
+========================================================= */
+
+.goog-te-banner-frame, 
+.goog-te-banner, 
+.skiptranslate, 
+iframe.goog-te-banner-frame, 
+#goog-gt-tt, 
+.goog-te-balloon-frame {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* 3. Eliminar el parpadeo azul o amarillo cuando pasas el cursor sobre los textos traducidos */
+.goog-text-highlight {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+
+/* 4. Evitar que se rompa el diseño del contenedor principal si Google intenta meter un margen */
+.goog-te-gadget {
+    font-size: 0 !important; /* Esconde texto residual de Google */
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat', sans-serif; overflow-x:hidden; background:#f5f5f5; top: 0 !important; position: static !important; }
+
+
+/* =========================================================
+   HEADER Y NAVBAR
+========================================================= */
+header { width:100%; position:fixed; top:0; left:0; z-index:1000; padding:20px 30px; transition:0.4s ease; background:transparent; }
+header.scrolled { background:#0f9d58; box-shadow:0 4px 15px rgba(0,0,0,0.15); }
+
+.navbar { display:flex; align-items:center; justify-content:space-between; max-width:1400px; margin:auto; width:100%; gap:20px; }
+.nav-left { display:flex; align-items:center; gap:20px; }
+.logo img { width:140px; display:block; }
+.language-select { border:none; outline:none; background:#11c76f; color:white; padding:12px 18px; border-radius:12px; font-weight:600; cursor:pointer; font-size:15px; }
+
+.nav-links { display:flex; align-items:center; gap:30px; list-style:none; }
+.nav-links a { text-decoration:none; color:#111; font-weight:600; display:flex; align-items:center; gap:8px; transition:0.3s; white-space:nowrap; }
+.nav-links a:hover { color:#ff7b00; }
+header.scrolled .nav-links a { color:white; }
+
+.contact-btn { background:#3fbd53; color:whitesmoke; padding:14px 24px; border-radius:40px; text-decoration:none; font-weight:700; display:flex; align-items:center; gap:10px; transition:0.3s; white-space:nowrap; }
+.contact-btn:hover { background:#0fb563; transform:translateY(-2px); }
+.nav-actions {
+    display: flex;
+    gap: 10px;   /* Ajusta este valor */
+    align-items: center;
+}
+/* Hamburguesa Oculta por defecto */
+.hamburger { display:none; font-size:30px; cursor:pointer; color:#111; z-index:1200; }
+header.scrolled .hamburger { color:white; }
+
+/* =========================================================
+   MOBILE MENU Y OVERLAY
+========================================================= */
+.mobile-menu { position:fixed; top:0; left:-100%; width:280px; height:100vh; background:white; z-index:1100; padding:100px 30px 40px; transition:0.4s ease; box-shadow:5px 0 20px rgba(0,0,0,0.1); }
+.mobile-menu.active { left:0; }
+.mobile-menu ul { list-style:none; display:flex; flex-direction:column; gap:25px; }
+.mobile-menu a { text-decoration:none; color:#111; font-size:18px; font-weight:600; display:flex; align-items:center; justify-content:space-between; }
+
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); opacity:0; visibility:hidden; transition:0.3s; z-index:1050; }
+.overlay.active { opacity:1; visibility:visible; }
+
+/* =========================================================
+   EXPERIENCE / FORM SECTION
+========================================================= */
+.experience { margin-top: 80px; width:100%; padding:100px 20px; background:#f5f5f5; }
+.experience-header { text-align:center; margin-bottom:60px; }
+.experience-header span { color:#555; font-size:1rem; font-weight: 600; }
+.experience-header h2 { font-size:3rem; font-weight:800; line-height:1.2; margin-top:15px; color:#111; }
+
+.experience-container { display:flex; align-items:flex-start; justify-content:center; gap:40px; max-width:1300px; margin:auto; width: 100%; }
+
+/* ======== SELECT CARDS ======== */
+.plans-selector { display:flex; flex-direction:column; gap:20px; width:380px; flex-shrink: 0; }
+.select-card { background:#fff; border-radius:30px; padding:30px; cursor:pointer; position:relative; border:2px solid transparent; transition:.35s; box-shadow:0 10px 30px rgba(0,0,0,.05); }
+.select-card:hover { transform:translateY(-5px); }
+.select-card.active { border:2px solid #19f2a3; background:#000; color:#fff; }
+.select-card.active p { color:#ddd; }
+
+.recommended { position:absolute; top:-12px; right:20px; background:#19f2a3; color:#000; padding:8px 15px; border-radius:999px; font-size:.8rem; font-weight:700; }
+.select-card h3 { font-size:2rem; margin-bottom:10px; }
+.select-card p { line-height:1.6; color:#555; margin-bottom:15px; font-size: 0.95rem; }
+.select-card span { font-size:1.8rem; font-weight:800; }
+
+/* ======== FORM CONTAINER ======== */
+.form-container { flex:1; width: 100%; background:#fff; border-radius:35px; padding:45px; box-shadow:0 10px 30px rgba(0,0,0,.05); }
+.experience-form { display:flex; flex-direction:column; gap:25px; }
+
+.input-group { display:flex; flex-direction:column; gap:8px; }
+.input-group label { font-weight:600; color:#111; font-size: 0.95rem;}
+.input-group input, .input-group textarea { width:100%; border:1px solid transparent; outline:none; background:#f7f7f7; border-radius:15px; padding:18px; font-size:1rem; font-family:'Montserrat',sans-serif; transition:.3s; }
+.input-group textarea { min-height:130px; resize:none; }
+.input-group input:focus, .input-group textarea:focus { box-shadow:0 0 0 3px rgba(25,242,163,.2); border-color: #19f2a3; }
+.input-group input[readonly] { cursor: not-allowed; background: #eee; font-weight: 700;}
+
+.form-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+
+.terms-group { display: flex; flex-direction: column; gap: 8px;}
+.terms { display:flex; align-items:flex-start; gap:12px; }
+.terms input { margin-top:4px; transform: scale(1.2); accent-color: #19f2a3;}
+.terms label { line-height:1.6; color:#444; }
+.terms a { color:#0f9d58; font-weight:600; text-decoration:none; }
+
+.submit-btn { width:100%; border:none; outline:none; background:#000; color:#fff; padding:18px; border-radius:999px; font-size:1rem; font-weight:700; cursor:pointer; transition:.3s; margin-top: 10px;}
+.submit-btn:hover { transform:scale(1.02); background: #19f2a3; color: #000; }
+
+/* =========================================================
+   ESTILOS DE VALIDACIÓN Y MODAL
+========================================================= */
+.error-msg { color: #ff4757; font-size: 0.85rem; font-weight: 600; display: none; margin-left: 5px; }
+
+.modal { position:fixed; inset:0; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:.35s; z-index:5000; }
+.modal.active { opacity:1; visibility:visible; }
+.modal-content { width:90%; max-width:500px; background:#fff; border-radius:30px; overflow:hidden; transform:translateY(40px); transition:.4s; display: flex; flex-direction: column; align-items: center; }
+.modal.active .modal-content { transform:translateY(0); }
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.main-footer { background-color: #1a1a1a; color: #fff; padding-top: 4rem; font-family: 'Inter', sans-serif; margin-top: 4rem; }
+.footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 2rem 3rem 2rem; }
+.footer-logo { width: 120px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+.footer-col p { color: #a0a0a0; line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 1.5rem; position: relative; padding-bottom: 10px; }
+.footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background-color: #2196f3; border-radius: 2px; }
+.footer-col ul { list-style: none; padding: 0; }
+.footer-col ul li { margin-bottom: 1rem; }
+.footer-col ul li a, .footer-col ul.contact-info li { color: #a0a0a0; text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
+.footer-col ul li a:hover { color: #2196f3; transform: translateX(8px); }
+.contact-info i { color: #2196f3; font-size: 1.1rem; }
+.social-links { display: flex; gap: 15px; }
+.social-links a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: #333; color: #fff; border-radius: 50%; text-decoration: none; transition: all 0.3s ease; }
+.social-links a:hover { background-color: #2196f3; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4); }
+.footer-bottom { background-color: #111; text-align: center; padding: 1.5rem 2rem; color: #777; font-size: 0.9rem; border-top: 1px solid #333; }
+
+/* =========================================================
+   RESPONSIVE QUERIES
+========================================================= */
+@media(max-width:1100px){
+    .experience-container { flex-direction: column; align-items: stretch; }
+    .plans-selector { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width:950px){
+    header { padding:18px 20px; }
+    .nav-links, .contact-btn { display:none !important; }
+    .hamburger { display:block !important; }
+    .nav-left { gap:12px; }
+    .logo img { width:90px; }
+    .language-select { display:block; padding:10px 14px; font-size:14px; height:42px; border-radius:10px; }
+}
+
+@media(max-width:768px){
+    .plans-selector { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width:480px){
+    .experience { padding:70px 15px; margin-top: 60px; }
+    .experience-header { margin-bottom:30px; }
+    .experience-header h2 { font-size:2rem; line-height:1.2; }
+    
+    .experience-container { gap: 25px; }
+    
+    .select-card { padding:25px; border-radius:20px; }
+    .select-card h3 { font-size:1.6rem; }
+    .select-card span { font-size:1.6rem; }
+    
+    .form-container { padding: 25px 20px; border-radius: 20px; }
+    .form-grid { gap: 15px; }
+    
+    .input-group input, .input-group textarea { padding:15px; font-size:0.95rem; }
+    .submit-btn { padding:15px; font-size:0.95rem; }
+}
+
+/* =========================================================
+   RESUMEN DE RESERVA / PAGO
+========================================================= */
+.payment-summary {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid #eee;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.payment-summary h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 5px;
+}
+.payment-summary .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #555;
+}
+.payment-summary .summary-row span:last-child {
+    font-weight: 600;
+    color: #111;
+}
+.payment-summary #summaryDiscountRow {
+    color: #11c76f;
+    font-weight: 600;
+}
+.payment-summary #summaryDiscountRow span:last-child {
+    color: #11c76f;
+}
+.payment-summary hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 5px 0;
+}
+.payment-summary .summary-row.total-row {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #111;
+}
+.payment-summary .summary-row.total-row span:last-child {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #111;
+}
